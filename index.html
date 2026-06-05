@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
 <head>
@@ -195,13 +194,14 @@ canvas {
     background: #ffaa00;
 }
 
-textarea, input {
+textarea, input, select {
     background: #111;
     color: white;
     border: 1px solid #333;
     border-radius: 10px;
     padding: 12px;
     width: 100%;
+    margin: 10px 0;
 }
 
 footer {
@@ -228,6 +228,7 @@ footer h3 {
 <canvas id="sandCanvas"></canvas>
 
 <div class="container">
+    <!-- Navbar -->
     <div class="navbar">
         <div class="logo">
             <span class="white">Sanaullah</span>
@@ -242,6 +243,7 @@ footer h3 {
         </div>
     </div>
 
+    <!-- Hero -->
     <div class="hero">
         <h1>
             <span class="white">Sanaullah</span>
@@ -252,6 +254,7 @@ footer h3 {
         <a href="#" class="hero-btn">شروع کریں</a>
     </div>
 
+    <!-- ہمارے ٹولز -->
     <h2 class="section-title">📌 ہمارے ٹولز</h2>
     <div class="cards">
         <div class="card">
@@ -280,15 +283,24 @@ footer h3 {
         </div>
     </div>
 
-    <!-- ✍️ نیا ٹول: Text Assistant -->
-    <h2 class="section-title">✍️ Text Assistant</h2>
-    <div class="card" style="max-width: 800px; margin: auto;">
-        <textarea id="textAssistantInput" rows="5" placeholder="یہاں کچھ بھی لکھیں..."></textarea>
-        <br><br>
-        <button class="open-btn" onclick="copyText()">Copy Text</button>
-        <button class="open-btn" onclick="clearText()">Clear Text</button>
-        <br><br>
-        <div id="textAssistantMsg" style="color: #ffcc00; font-size: 14px; text-align: center;"></div>
+    <!-- 🤖 سمارٹ فری لانس اسسٹنٹ (درست شدہ) -->
+    <div class="card" style="max-width: 800px; margin: 40px auto; text-align: right;">
+        <h2 style="color: #ffcc00; margin-bottom: 15px;">🤖 سمارٹ فری لانس اسسٹنٹ</h2>
+        
+        <select id="taskType">
+            <option value="upwork">Upwork Proposal (پیشہ ورانہ پروپوزل)</option>
+            <option value="fiverr">Fiverr Gig Description (گگ کی تفصیل)</option>
+            <option value="freelancer">Freelancer.com Bid (بڈنگ کا طریقہ)</option>
+            <option value="linkedin">LinkedIn Connection (نیٹ ورکنگ میسج)</option>
+        </select>
+        
+        <input type="text" id="userTopic" placeholder="کام کا نام لکھیں (مثال: Google Sheets Automation)">
+        
+        <button class="open-btn" onclick="generateAIAnswer()" style="width: 100%;">AI سے پوچھیں</button>
+        
+        <div id="aiResponse" style="margin-top: 20px; padding: 15px; background: #0a0a0f; border: 1px solid #ffcc00; border-radius: 10px; min-height: 100px; color: #fff; line-height: 1.6;">
+            جواب یہاں آئے گا...
+        </div>
     </div>
 
     <!-- Google Translate -->
@@ -327,12 +339,15 @@ footer h3 {
 </footer>
 
 <script>
+    // Text Case Converter
     function convertText(type) {
         let text = document.getElementById("textInput").value;
         let result = "";
-        if (type === "upper") result = text.toUpperCase();
-        else if (type === "lower") result = text.toLowerCase();
-        else if (type === "capitalize") {
+        if (type === "upper") {
+            result = text.toUpperCase();
+        } else if (type === "lower") {
+            result = text.toLowerCase();
+        } else if (type === "capitalize") {
             result = text.toLowerCase().replace(/(^|\s)\S/g, function(t) {
                 return t.toUpperCase();
             });
@@ -340,6 +355,7 @@ footer h3 {
         document.getElementById("textResult").innerHTML = result;
     }
 
+    // Proposal Generator
     function generateProposal() {
         let job = document.getElementById("jobTitle").value;
         if (job === "") {
@@ -357,25 +373,42 @@ footer h3 {
         `;
     }
 
-    // Text Assistant Functions
-    function copyText() {
-        let textArea = document.getElementById("textAssistantInput");
-        textArea.select();
-        document.execCommand("copy");
-        document.getElementById("textAssistantMsg").innerHTML = "✅ متن کاپی ہو گیا!";
-        setTimeout(() => {
-            document.getElementById("textAssistantMsg").innerHTML = "";
-        }, 2000);
+    // 🤖 سمارٹ فری لانس اسسٹنٹ
+    function generateAIAnswer() {
+        let task = document.getElementById("taskType").value;
+        let topic = document.getElementById("userTopic").value;
+        let display = document.getElementById("aiResponse");
+
+        if (topic === "") {
+            display.innerHTML = "⚠️ براہ کرم کوئی کام کا نام لکھیں!";
+            return;
+        }
+
+        let responses = {
+            upwork: `Hi Client, I have reviewed your project requirements for <strong>${topic}</strong>. I am an expert in this field and can deliver efficiently. I have completed similar projects successfully. Let's discuss your specific needs.<br><br>Best regards,<br>Sanaullah`,
+            fiverr: `Are you looking for high-quality <strong>${topic}</strong> services? I specialize in delivering professional results with fast turnaround. Satisfaction guaranteed!<br><br>Order now and let's get started.<br><br>Regards,<br>Sanaullah`,
+            freelancer: `Hi, I am interested in your project about <strong>${topic}</strong>. I can complete this task within your budget and timeline. Please check my profile for similar work. Ready to start immediately!<br><br>Thanks,<br>Sanaullah`,
+            linkedin: `Hi, I noticed you are working on <strong>${topic}</strong>. I specialize in automation and productivity solutions. Would love to connect and discuss how we can collaborate.<br><br>Best,<br>Sanaullah`
+        };
+
+        let result = responses[task] || responses.upwork;
+
+        display.innerHTML = `
+            <div id="finalText" style="margin-bottom:15px;">${result}</div>
+            <button onclick="copyToClipboard()" style="padding:8px 20px; cursor:pointer; background:#ffcc00; border:none; border-radius:5px; font-weight:bold;">📋 کاپی کریں</button>
+        `;
     }
 
-    function clearText() {
-        document.getElementById("textAssistantInput").value = "";
-        document.getElementById("textAssistantMsg").innerHTML = "🗑️ متن صاف ہو گیا";
-        setTimeout(() => {
-            document.getElementById("textAssistantMsg").innerHTML = "";
-        }, 2000);
+    function copyToClipboard() {
+        let text = document.getElementById("finalText").innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert("✅ پوسٹ کاپی ہو گئی! اب آپ اسے کہیں بھی پیسٹ کر سکتے ہیں۔");
+        }).catch(err => {
+            alert("❌ کاپی کرنے میں مسئلہ ہوا: " + err);
+        });
     }
 
+    // Google Translate
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({
             pageLanguage: 'ur',
@@ -386,6 +419,7 @@ footer h3 {
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script>
+    // === گولڈن ریت + چمکتی بلبیں (پس منظر) ===
     const canvas = document.getElementById('sandCanvas');
     const ctx = canvas.getContext('2d');
 
