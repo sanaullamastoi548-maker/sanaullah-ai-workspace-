@@ -280,7 +280,25 @@
         <p>🤖 AI سے ہر مشکل کام کا آسان حل — Freelancing, Writing, SEO, Coding & Language Tools</p>
     </div>
 
+   <!-- نیا ٹرانسلیٹ اور سرچ سیکشن -->
+<div class="lang-search-section">
+    <h3 id="searchTitle">🌐 Universal Translator & Search</h3>
     
+    <!-- Google Translate کا ڈیفالٹ باکس -->
+    <div id="google_translate_element" style="margin-bottom: 20px;"></div>
+
+    <div class="lang-search-box">
+        <input type="text" id="customSearchInput" placeholder="کچھ بھی تلاش کریں (Google/YouTube/Bing)...">
+        <button onclick="performSearch()">تلاش کریں 🔍</button>
+    </div>
+
+    <div class="search-engines">
+        <a class="search-engine-link" href="#" onclick="setEngine('google')" id="eng-google">🔍 Google</a>
+        <a class="search-engine-link" href="#" onclick="setEngine('youtube')" id="eng-youtube">📺 YouTube</a>
+        <a class="search-engine-link" href="#" onclick="setEngine('bing')" id="eng-bing">🌐 Bing</a>
+    </div>
+</div>
+ 
 
     <!-- ========== ٹولز کا کنٹینر ========== -->
     <div class="tools-container">
@@ -379,6 +397,7 @@ function performSearch() {
     window.open(url, '_blank');
 }
 
+    }
 
     // ========== HELPER: COPY FUNCTION ==========
     function universalCopy(elementId) {
@@ -448,8 +467,8 @@ function performSearch() {
     }
 </script>
 
-<!-- Google Translate Script -->
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 
 <script>
     // ========== گولڈن ریت + چمکتی بلبیں (پس منظر) ==========
