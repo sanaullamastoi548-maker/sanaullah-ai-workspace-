@@ -126,30 +126,13 @@
         .select-box {
             margin-bottom: 30px;
         }
-        .language-select {
-            width: 100%;
-            padding: 14px 20px;
-            border: 2px solid #ffcc00;
-            border-radius: 50px;
-            font-size: 16px;
-            background: rgba(0,0,0,0.5);
-            color: white;
-            cursor: pointer;
-            outline: none;
-            text-align: center;
-        }
-        .language-select option {
-            background: #1a1a2e;
-            color: white;
-        }
-
-        /* Google Translate Container */
-        .translate-container {
-            background: rgba(0,0,0,0.3);
-            border-radius: 20px;
-            padding: 15px;
-            margin: 20px 0;
-        }
+        language-section { background: #ffffff; padding: 20px; text-align: center; border-bottom: 2px solid #3498db; }
+        #language-search { padding: 12px; width: 300px; border: 2px solid #3498db; border-radius: 8px; font-size: 16px; margin-bottom: 10px; }
+        
+        .container { max-width: 1000px; margin: 20px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 20px; }
+        
+        .tool-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 5px solid #3498db; transition: 0.3s; }
+        .tool-card:hover { transform: translateY(-5px); }
 
         /* Powered By */
         .powered {
@@ -207,50 +190,38 @@
         </div>
 
         <!-- Title -->
-        <div class="section-title">🌐 اپنی زبان تلاش کریں</div>
-
-        <!-- Search Box -->
-        <div class="search-box">
-            <input type="text" id="language-search" placeholder="Urdu, Arabic, English...">
-            <div id="searchStatus" class="status-msg" style="display: none;"></div>
-        </div>
-
-        <!-- Select Language Dropdown -->
-        <div class="select-box">
-            <select id="language-select" class="language-select" onchange="selectFromDropdown()">
-                <option value="">📋 Select Language</option>
-                <option value="Urdu">🇵🇰 اردو (Urdu)</option>
-                <option value="English">🇬🇧 English</option>
-                <option value="Arabic">🇸🇦 العربية (Arabic)</option>
-                <option value="Hindi">🇮🇳 हिन्दी (Hindi)</option>
-                <option value="Spanish">🇪🇸 Español (Spanish)</option>
-                <option value="French">🇫🇷 Français (French)</option>
-                <option value="German">🇩🇪 Deutsch (German)</option>
-                <option value="Turkish">🇹🇷 Türkçe (Turkish)</option>
-                <option value="Persian">🇮🇷 فارسی (Persian)</option>
-                <option value="Bengali">🇧🇩 বাংলা (Bengali)</option>
-                <option value="Russian">🇷🇺 Русский (Russian)</option>
-            </select>
-        </div>
-
-        <!-- Google Translate Container -->
-        <div class="translate-container">
-            <div id="google_translate_element"></div>
-        </div>
-
-        <!-- Demo Text (to show translation works) -->
-        <div class="demo-text">
-            <p>✨ یہ ایک نمونہ متن ہے۔ جب آپ Google Translate سے کوئی زبان منتخب کریں گے، تو یہ پورا صفحہ اسی زبان میں ترجمہ ہو جائے گا۔</p>
-            <button class="copy-btn" onclick="copyDemoText()">📋 کاپی کریں / Copy</button>
-            <div id="copyMessage" class="copy-message"></div>
-        </div>
-
-        <!-- Powered By -->
-        <div class="powered">
-            <span>🔍</span> Powered by <span>Google Translate</span>
-        </div>
+        
+    <div class="language-section">
+        <h3>🌐 اپنی زبان تلاش کریں</h3>
+        <input type="text" id="language-search" placeholder="مثلاً: Urdu, Arabic, English..." onkeyup="filterLanguages()">
+        <div id="google_translate_element"></div>
     </div>
 
+        
+
+        <!-- Powered By -->
+       <script type="text/javascript">
+        // گوگل ٹرانسلیٹ کا فنکشن
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+        }
+
+        // سرچ بار کا فنکشن
+        function filterLanguages() {
+            let input = document.getElementById('language-search').value.toLowerCase();
+            let select = document.querySelector('.goog-te-combo');
+            if (select) {
+                for (let i = 0; i < select.options.length; i++) {
+                    if (select.options[i].text.toLowerCase().indexOf(input) > -1) {
+                        select.selectedIndex = i;
+                        select.dispatchEvent(new Event('change'));
+                        break;
+                    }
+                }
+            }
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
     <script>
         // ========== SHOW STATUS MESSAGE (خوبصورت پیغام) ==========
         function showStatus(message, type) {
