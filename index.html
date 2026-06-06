@@ -204,6 +204,22 @@ textarea, input, select {
     margin: 10px 0;
 }
 
+/* کاپی بٹن کے لیے خاص اسٹائل */
+.copy-btn {
+    padding: 8px 20px;
+    cursor: pointer;
+    background: #ffcc00;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.copy-btn:hover {
+    background: #ffaa00;
+    transform: scale(1.02);
+}
+
 footer {
     margin-top: 60px;
     padding: 30px;
@@ -261,29 +277,29 @@ footer h3 {
             <div class="icon">🤖</div>
             <h3>Freelance Assistant</h3>
             <p>AI کی مدد سے پرووزل اور نگ ڈسکریشن لکھیں۔</p>
-            <button class="open-btn">Open Tool</button>
+            <button class="open-btn" onclick="alert('Freelance Assistant جلد آرہا ہے')">Open Tool</button>
         </div>
         <div class="card">
             <div class="icon">✍️</div>
             <h3>Content Writer</h3>
             <p>AI کے ساتھ بہترین آرٹیکل اور مواد تیار کریں۔</p>
-            <button class="open-btn">Open Tool</button>
+            <button class="open-btn" onclick="alert('Content Writer جلد آرہا ہے')">Open Tool</button>
         </div>
         <div class="card">
             <div class="icon">📈</div>
             <h3>SEO Optimizer</h3>
             <p>اپنے آرٹیکل اور ویب سائٹ SEO کے مطابق بنائیں۔</p>
-            <button class="open-btn">Open Tool</button>
+            <button class="open-btn" onclick="alert('SEO Optimizer جلد آرہا ہے')">Open Tool</button>
         </div>
         <div class="card">
             <div class="icon">💻</div>
             <h3>Code Helper</h3>
             <p>کوڈنگ میں AI اسسٹنٹ سے مدد حاصل کریں۔</p>
-            <button class="open-btn">Open Tool</button>
+            <button class="open-btn" onclick="alert('Code Helper جلد آرہا ہے')">Open Tool</button>
         </div>
     </div>
 
-    <!-- 🤖 سمارٹ فری لانس اسسٹنٹ (درست شدہ) -->
+    <!-- 🤖 سمارٹ فری لانس اسسٹنٹ (کاپی کا مسئلہ حل شدہ) -->
     <div class="card" style="max-width: 800px; margin: 40px auto; text-align: right;">
         <h2 style="color: #ffcc00; margin-bottom: 15px;">🤖 سمارٹ فری لانس اسسٹنٹ</h2>
         
@@ -363,6 +379,7 @@ footer h3 {
             return;
         }
         document.getElementById("proposalResult").innerHTML = `
+        <div style="background:#1a1a2e; padding:15px; border-radius:10px;">
         Hello,<br><br>
         I am an experienced professional with strong expertise in ${job}.<br><br>
         I can deliver high-quality work with attention to detail and within your deadline.<br><br>
@@ -370,10 +387,11 @@ footer h3 {
         Looking forward to working with you.<br><br>
         Best Regards,<br>
         Sanaullah
+        </div>
         `;
     }
 
-    // 🤖 سمارٹ فری لانس اسسٹنٹ
+    // 🤖 سمارٹ فری لانس اسسٹنٹ (کاپی کا مسئلہ مکمل حل)
     function generateAIAnswer() {
         let task = document.getElementById("taskType").value;
         let topic = document.getElementById("userTopic").value;
@@ -385,27 +403,56 @@ footer h3 {
         }
 
         let responses = {
-            upwork: `Hi Client, I have reviewed your project requirements for <strong>${topic}</strong>. I am an expert in this field and can deliver efficiently. I have completed similar projects successfully. Let's discuss your specific needs.<br><br>Best regards,<br>Sanaullah`,
-            fiverr: `Are you looking for high-quality <strong>${topic}</strong> services? I specialize in delivering professional results with fast turnaround. Satisfaction guaranteed!<br><br>Order now and let's get started.<br><br>Regards,<br>Sanaullah`,
-            freelancer: `Hi, I am interested in your project about <strong>${topic}</strong>. I can complete this task within your budget and timeline. Please check my profile for similar work. Ready to start immediately!<br><br>Thanks,<br>Sanaullah`,
-            linkedin: `Hi, I noticed you are working on <strong>${topic}</strong>. I specialize in automation and productivity solutions. Would love to connect and discuss how we can collaborate.<br><br>Best,<br>Sanaullah`
+            upwork: `Hi Client, I have reviewed your project requirements for ${topic}. I am an expert in this field and can deliver efficiently. I have completed similar projects successfully. Let's discuss your specific needs.\n\nBest regards,\nSanaullah`,
+            fiverr: `Are you looking for high-quality ${topic} services? I specialize in delivering professional results with fast turnaround. Satisfaction guaranteed!\n\nOrder now and let's get started.\n\nRegards,\nSanaullah`,
+            freelancer: `Hi, I am interested in your project about ${topic}. I can complete this task within your budget and timeline. Please check my profile for similar work. Ready to start immediately!\n\nThanks,\nSanaullah`,
+            linkedin: `Hi, I noticed you are working on ${topic}. I specialize in automation and productivity solutions. Would love to connect and discuss how we can collaborate.\n\nBest,\nSanaullah`
         };
 
         let result = responses[task] || responses.upwork;
-
+        
+        // ایک یونیک ID کے ساتھ ڈسپلے کریں
+        let uniqueId = 'textToCopy_' + Date.now();
+        
         display.innerHTML = `
-            <div id="finalText" style="margin-bottom:15px;">${result}</div>
-            <button onclick="copyToClipboard()" style="padding:8px 20px; cursor:pointer; background:#ffcc00; border:none; border-radius:5px; font-weight:bold;">📋 کاپی کریں</button>
+            <div id="${uniqueId}" style="margin-bottom:15px; background:#1a1a2e; padding:15px; border-radius:8px; white-space:pre-wrap; text-align:left; direction:ltr;">${result.replace(/\n/g, '<br>')}</div>
+            <button class="copy-btn" onclick="copyTextById('${uniqueId}')">📋 کاپی کریں</button>
         `;
     }
 
-    function copyToClipboard() {
-        let text = document.getElementById("finalText").innerText;
-        navigator.clipboard.writeText(text).then(() => {
-            alert("✅ پوسٹ کاپی ہو گئی! اب آپ اسے کہیں بھی پیسٹ کر سکتے ہیں۔");
-        }).catch(err => {
-            alert("❌ کاپی کرنے میں مسئلہ ہوا: " + err);
-        });
+    // نیا کاپی فنکشن - یہ 100% کام کرے گا
+    function copyTextById(elementId) {
+        // پہلا طریقہ: متن کو حاصل کریں
+        let element = document.getElementById(elementId);
+        let textToCopy = element.innerText || element.textContent;
+        
+        // دوسرا طریقہ: عارضی textarea بنائیں
+        let tempTextArea = document.createElement("textarea");
+        tempTextArea.value = textToCopy;
+        document.body.appendChild(tempTextArea);
+        
+        // متن کو سلیکٹ کریں
+        tempTextArea.select();
+        tempTextArea.setSelectionRange(0, 99999);
+        
+        // کاپی کرنے کی کوشش کریں
+        let success = false;
+        try {
+            success = document.execCommand("copy");
+        } catch(err) {
+            console.log("execCommand error:", err);
+        }
+        
+        // عارضی textarea کو ہٹا دیں
+        document.body.removeChild(tempTextArea);
+        
+        // صارف کو بتائیں
+        if (success) {
+            alert("✅ متن کامیابی سے کاپی ہو گیا!");
+        } else {
+            // تیسرا طریقہ: manual select and copy
+            alert("❌ خودکار کاپی ممکن نہیں۔ براہ کرم متن کو manually select کر کے Ctrl+C دبائیں۔\n\nمتن: \n" + textToCopy);
+        }
     }
 
     // Google Translate
