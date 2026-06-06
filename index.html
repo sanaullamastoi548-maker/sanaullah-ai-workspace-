@@ -88,7 +88,7 @@ canvas {
 
 .hero {
     text-align: center;
-    padding: 80px 20px;
+    padding: 60px 20px 40px;
 }
 
 .hero h1 {
@@ -120,78 +120,59 @@ canvas {
     box-shadow: 0 0 20px #ffcc00;
 }
 
-.hero-btn {
-    display: inline-block;
-    margin-top: 25px;
-    padding: 14px 30px;
-    background: linear-gradient(135deg, #ffcc00, #ffaa00);
-    color: black;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 40px;
-}
-
 .section-title {
     text-align: center;
     font-size: 32px;
-    margin-top: 50px;
-    margin-bottom: 30px;
+    margin: 50px 0 30px;
     color: white;
 }
 
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 25px;
-    margin-bottom: 60px;
-}
-
-.card {
+/* Tool Section - ہر ٹول الگ کارڈ میں */
+.tool-section {
     background: rgba(255, 255, 255, .05);
     border: 1px solid rgba(255, 255, 255, .1);
     backdrop-filter: blur(12px);
-    padding: 25px;
-    border-radius: 20px;
-    text-align: center;
+    border-radius: 24px;
+    padding: 30px;
+    margin-bottom: 40px;
     transition: .4s;
 }
 
-.card:hover {
-    transform: translateY(-10px);
+.tool-section:hover {
     border-color: #ffcc00;
     box-shadow: 0 0 30px rgba(255, 204, 0, .2);
 }
 
-.icon {
-    font-size: 40px;
-    margin-bottom: 15px;
+.tool-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255,204,0,0.3);
+    padding-bottom: 15px;
 }
 
-.card h3 {
-    margin-bottom: 10px;
-    color: white;
+.tool-icon {
+    font-size: 48px;
 }
 
-.card p {
+.tool-header h2 {
+    color: #ffcc00;
+    font-size: 28px;
+}
+
+.tool-desc {
     color: #ccc;
-    font-size: 14px;
+    margin-bottom: 25px;
+    font-size: 16px;
 }
 
-.open-btn {
+/* Tool Content */
+.tool-content {
+    background: rgba(0,0,0,0.3);
+    border-radius: 16px;
+    padding: 20px;
     margin-top: 15px;
-    padding: 10px 18px;
-    border: none;
-    border-radius: 25px;
-    background: #ffcc00;
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.open-btn:hover {
-    transform: scale(1.05);
-    background: #ffaa00;
 }
 
 textarea, input, select {
@@ -204,7 +185,23 @@ textarea, input, select {
     margin: 10px 0;
 }
 
-/* کاپی بٹن کے لیے خاص اسٹائل */
+.open-btn {
+    margin-top: 15px;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 25px;
+    background: #ffcc00;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.open-btn:hover {
+    transform: scale(1.02);
+    background: #ffaa00;
+}
+
 .copy-btn {
     padding: 8px 20px;
     cursor: pointer;
@@ -217,7 +214,16 @@ textarea, input, select {
 
 .copy-btn:hover {
     background: #ffaa00;
-    transform: scale(1.02);
+}
+
+.result-box {
+    margin-top: 15px;
+    padding: 15px;
+    background: #0a0a0f;
+    border: 1px solid #ffcc00;
+    border-radius: 10px;
+    color: #ddd;
+    line-height: 1.6;
 }
 
 footer {
@@ -235,7 +241,7 @@ footer h3 {
 @media (max-width: 768px) {
     .hero h1 { font-size: 32px; }
     .navbar { flex-direction: column; }
-    .nav-links { justify-content: center; }
+    .tool-header { flex-direction: column; text-align: center; }
 }
 </style>
 </head>
@@ -267,85 +273,99 @@ footer h3 {
         </h1>
         <div class="glow-line"></div>
         <p>AI سے ہر مشکل کام کا آسان حل — Freelancing, Writing, Automation اور Productivity Tools</p>
-        <a href="#" class="hero-btn">شروع کریں</a>
     </div>
 
-    <!-- ہمارے ٹولز -->
-    <h2 class="section-title">📌 ہمارے ٹولز</h2>
-    <div class="cards">
-        <div class="card">
-            <div class="icon">🤖</div>
-            <h3>Freelance Assistant</h3>
-            <p>AI کی مدد سے پرووزل اور نگ ڈسکریشن لکھیں۔</p>
-            <button class="open-btn" onclick="alert('Freelance Assistant جلد آرہا ہے')">Open Tool</button>
+    <!-- ==================== ٹول 1: Freelance Assistant ==================== -->
+    <div class="tool-section">
+        <div class="tool-header">
+            <div class="tool-icon">🤖</div>
+            <h2>Freelance Assistant</h2>
         </div>
-        <div class="card">
-            <div class="icon">✍️</div>
-            <h3>Content Writer</h3>
-            <p>AI کے ساتھ بہترین آرٹیکل اور مواد تیار کریں۔</p>
-            <button class="open-btn" onclick="alert('Content Writer جلد آرہا ہے')">Open Tool</button>
-        </div>
-        <div class="card">
-            <div class="icon">📈</div>
-            <h3>SEO Optimizer</h3>
-            <p>اپنے آرٹیکل اور ویب سائٹ SEO کے مطابق بنائیں۔</p>
-            <button class="open-btn" onclick="alert('SEO Optimizer جلد آرہا ہے')">Open Tool</button>
-        </div>
-        <div class="card">
-            <div class="icon">💻</div>
-            <h3>Code Helper</h3>
-            <p>کوڈنگ میں AI اسسٹنٹ سے مدد حاصل کریں۔</p>
-            <button class="open-btn" onclick="alert('Code Helper جلد آرہا ہے')">Open Tool</button>
+        <div class="tool-desc">AI کی مدد سے پرووزل اور نگ ڈسکریشن لکھیں۔</div>
+        
+        <div class="tool-content">
+            <select id="taskType">
+                <option value="upwork">Upwork Proposal</option>
+                <option value="fiverr">Fiverr Gig Description</option>
+                <option value="freelancer">Freelancer.com Bid</option>
+                <option value="linkedin">LinkedIn Connection Message</option>
+            </select>
+            <input type="text" id="userTopic" placeholder="کام کا نام لکھیں (مثال: Google Sheets Automation)">
+            <button class="open-btn" onclick="generateAIAnswer()">Generate Proposal</button>
+            <div id="aiResponse" class="result-box">جواب یہاں آئے گا...</div>
         </div>
     </div>
 
-    <!-- 🤖 سمارٹ فری لانس اسسٹنٹ (کاپی کا مسئلہ حل شدہ) -->
-    <div class="card" style="max-width: 800px; margin: 40px auto; text-align: right;">
-        <h2 style="color: #ffcc00; margin-bottom: 15px;">🤖 سمارٹ فری لانس اسسٹنٹ</h2>
+    <!-- ==================== ٹول 2: Content Writer ==================== -->
+    <div class="tool-section">
+        <div class="tool-header">
+            <div class="tool-icon">✍️</div>
+            <h2>Content Writer</h2>
+        </div>
+        <div class="tool-desc">AI کے ساتھ بہترین آرٹیکل اور مواد تیار کریں۔</div>
         
-        <select id="taskType">
-            <option value="upwork">Upwork Proposal (پیشہ ورانہ پروپوزل)</option>
-            <option value="fiverr">Fiverr Gig Description (گگ کی تفصیل)</option>
-            <option value="freelancer">Freelancer.com Bid (بڈنگ کا طریقہ)</option>
-            <option value="linkedin">LinkedIn Connection (نیٹ ورکنگ میسج)</option>
-        </select>
-        
-        <input type="text" id="userTopic" placeholder="کام کا نام لکھیں (مثال: Google Sheets Automation)">
-        
-        <button class="open-btn" onclick="generateAIAnswer()" style="width: 100%;">AI سے پوچھیں</button>
-        
-        <div id="aiResponse" style="margin-top: 20px; padding: 15px; background: #0a0a0f; border: 1px solid #ffcc00; border-radius: 10px; min-height: 100px; color: #fff; line-height: 1.6;">
-            جواب یہاں آئے گا...
+        <div class="tool-content">
+            <textarea id="contentInput" rows="4" placeholder="اپنا مواد یہاں لکھیں..."></textarea>
+            <button class="open-btn" onclick="convertContent('upper')">UPPERCASE</button>
+            <button class="open-btn" onclick="convertContent('lower')">lowercase</button>
+            <button class="open-btn" onclick="convertContent('capitalize')">Capitalize</button>
+            <div id="contentResult" class="result-box">نتیجہ یہاں آئے گا...</div>
         </div>
     </div>
 
+    <!-- ==================== ٹول 3: SEO Optimizer ==================== -->
+    <div class="tool-section">
+        <div class="tool-header">
+            <div class="tool-icon">📈</div>
+            <h2>SEO Optimizer</h2>
+        </div>
+        <div class="tool-desc">اپنے آرٹیکل اور ویب سائٹ SEO کے مطابق بنائیں۔</div>
+        
+        <div class="tool-content">
+            <input type="text" id="seoKeyword" placeholder="اپنا مطلوبہ لفظ لکھیں (مثال: AI Tools)">
+            <textarea id="seoContent" rows="4" placeholder="اپنا آرٹیکل یہاں لکھیں..."></textarea>
+            <button class="open-btn" onclick="optimizeSEO()">SEO Optimize کریں</button>
+            <div id="seoResult" class="result-box">SEO تجاویز یہاں آئیں گی...</div>
+        </div>
+    </div>
+
+    <!-- ==================== ٹول 4: Code Helper ==================== -->
+    <div class="tool-section">
+        <div class="tool-header">
+            <div class="tool-icon">💻</div>
+            <h2>Code Helper</h2>
+        </div>
+        <div class="tool-desc">کوڈنگ میں AI اسسٹنٹ سے مدد حاصل کریں۔</div>
+        
+        <div class="tool-content">
+            <select id="codeLanguage">
+                <option value="html">HTML</option>
+                <option value="css">CSS</option>
+                <option value="javascript">JavaScript</option>
+                <option value="python">Python</option>
+            </select>
+            <textarea id="codeQuestion" rows="3" placeholder="اپنا سوال لکھیں..."></textarea>
+            <button class="open-btn" onclick="generateCodeHelp()">Code Helper سے پوچھیں</button>
+            <div id="codeResult" class="result-box">کوڈ کا جواب یہاں آئے گا...</div>
+        </div>
+    </div>
+
+    <!-- ==================== اضافی ٹولز ==================== -->
+    
     <!-- Google Translate -->
     <h2 class="section-title">🌐 زبان تبدیل کریں</h2>
-    <div class="card" style="max-width: 700px; margin: auto;">
+    <div class="tool-section">
         <div id="google_translate_element"></div>
     </div>
 
-    <!-- Text Case Converter -->
-    <h2 class="section-title">🔤 Text Case Converter</h2>
-    <div class="card" style="max-width: 800px; margin: auto;">
-        <textarea id="textInput" placeholder="یہاں اپنا ٹیکسٹ لکھیں..." rows="4"></textarea>
-        <br><br>
-        <button class="open-btn" onclick="convertText('upper')">UPPERCASE</button>
-        <button class="open-btn" onclick="convertText('lower')">lowercase</button>
-        <button class="open-btn" onclick="convertText('capitalize')">Capitalize</button>
-        <br><br>
-        <div id="textResult" style="color: #ddd; text-align: right;"></div>
+    <!-- Proposal Generator (Extra) -->
+    <h2 class="section-title">🤖 Proposal Generator</h2>
+    <div class="tool-section">
+        <input type="text" id="jobTitle" placeholder="مثال: Google Sheets Automation">
+        <button class="open-btn" onclick="generateProposal()">Generate Proposal</button>
+        <div id="proposalResult" class="result-box">پروپوزل یہاں آئے گا...</div>
     </div>
 
-    <!-- Proposal Generator -->
-    <h2 class="section-title">🤖 Proposal Generator</h2>
-    <div class="card" style="max-width: 800px; margin: auto;">
-        <input type="text" id="jobTitle" placeholder="مثال: Google Sheets Automation">
-        <br><br>
-        <button class="open-btn" onclick="generateProposal()">Generate Proposal</button>
-        <br><br>
-        <div id="proposalResult" style="color: #ddd; text-align: right;"></div>
-    </div>
 </div>
 
 <footer>
@@ -355,43 +375,7 @@ footer h3 {
 </footer>
 
 <script>
-    // Text Case Converter
-    function convertText(type) {
-        let text = document.getElementById("textInput").value;
-        let result = "";
-        if (type === "upper") {
-            result = text.toUpperCase();
-        } else if (type === "lower") {
-            result = text.toLowerCase();
-        } else if (type === "capitalize") {
-            result = text.toLowerCase().replace(/(^|\s)\S/g, function(t) {
-                return t.toUpperCase();
-            });
-        }
-        document.getElementById("textResult").innerHTML = result;
-    }
-
-    // Proposal Generator
-    function generateProposal() {
-        let job = document.getElementById("jobTitle").value;
-        if (job === "") {
-            document.getElementById("proposalResult").innerHTML = "براہ کرم جاب کا نام لکھیں";
-            return;
-        }
-        document.getElementById("proposalResult").innerHTML = `
-        <div style="background:#1a1a2e; padding:15px; border-radius:10px;">
-        Hello,<br><br>
-        I am an experienced professional with strong expertise in ${job}.<br><br>
-        I can deliver high-quality work with attention to detail and within your deadline.<br><br>
-        I would love to discuss your project and help you achieve your goals.<br><br>
-        Looking forward to working with you.<br><br>
-        Best Regards,<br>
-        Sanaullah
-        </div>
-        `;
-    }
-
-    // 🤖 سمارٹ فری لانس اسسٹنٹ (کاپی کا مسئلہ مکمل حل)
+    // ========== Tool 1: Freelance Assistant ==========
     function generateAIAnswer() {
         let task = document.getElementById("taskType").value;
         let topic = document.getElementById("userTopic").value;
@@ -409,33 +393,135 @@ footer h3 {
             linkedin: `Hi, I noticed you are working on ${topic}. I specialize in automation and productivity solutions. Would love to connect and discuss how we can collaborate.\n\nBest,\nSanaullah`
         };
 
-        let result = responses[task] || responses.upwork;
-        
-        // ایک یونیک ID کے ساتھ ڈسپلے کریں
-        let uniqueId = 'textToCopy_' + Date.now();
+        let result = responses[task];
+        let uniqueId = 'freelanceText_' + Date.now();
         
         display.innerHTML = `
-            <div id="${uniqueId}" style="margin-bottom:15px; background:#1a1a2e; padding:15px; border-radius:8px; white-space:pre-wrap; text-align:left; direction:ltr;">${result.replace(/\n/g, '<br>')}</div>
+            <div id="${uniqueId}" style="margin-bottom:15px; white-space:pre-wrap;">${result.replace(/\n/g, '<br>')}</div>
             <button class="copy-btn" onclick="copyTextById('${uniqueId}')">📋 کاپی کریں</button>
         `;
     }
 
-    // نیا کاپی فنکشن - یہ 100% کام کرے گا
+    // ========== Tool 2: Content Writer ==========
+    function convertContent(type) {
+        let text = document.getElementById("contentInput").value;
+        let result = "";
+        if (type === "upper") {
+            result = text.toUpperCase();
+        } else if (type === "lower") {
+            result = text.toLowerCase();
+        } else if (type === "capitalize") {
+            result = text.toLowerCase().replace(/(^|\s)\S/g, function(t) {
+                return t.toUpperCase();
+            });
+        }
+        let uniqueId = 'contentText_' + Date.now();
+        document.getElementById("contentResult").innerHTML = `
+            <div id="${uniqueId}" style="margin-bottom:15px;">${result}</div>
+            <button class="copy-btn" onclick="copyTextById('${uniqueId}')">📋 کاپی کریں</button>
+        `;
+    }
+
+    // ========== Tool 3: SEO Optimizer ==========
+    function optimizeSEO() {
+        let keyword = document.getElementById("seoKeyword").value;
+        let content = document.getElementById("seoContent").value;
+        
+        if (keyword === "") {
+            document.getElementById("seoResult").innerHTML = "⚠️ براہ کرم مطلوبہ لفظ لکھیں!";
+            return;
+        }
+        
+        let suggestions = `
+        🔍 SEO تجاویز for "${keyword}":<br><br>
+        ✅ عنوان میں "${keyword}" کا استعمال کریں<br>
+        ✅ پہلے 100 الفاظ میں "${keyword}" لائیں<br>
+        ✅ "${keyword}" کو 2-3 بار استعمال کریں<br>
+        ✅ "${keyword}" سے متعلق تصاویر شامل کریں<br>
+        ✅ Meta description میں "${keyword}" لکھیں<br><br>
+        <strong>آپ کا مواد:</strong><br>${content.substring(0, 200)}...
+        `;
+        
+        let uniqueId = 'seoText_' + Date.now();
+        document.getElementById("seoResult").innerHTML = `
+            <div id="${uniqueId}" style="margin-bottom:15px;">${suggestions}</div>
+            <button class="copy-btn" onclick="copyTextById('${uniqueId}')">📋 کاپی کریں</button>
+        `;
+    }
+
+    // ========== Tool 4: Code Helper ==========
+    function generateCodeHelp() {
+        let language = document.getElementById("codeLanguage").value;
+        let question = document.getElementById("codeQuestion").value;
+        
+        if (question === "") {
+            document.getElementById("codeResult").innerHTML = "⚠️ براہ کرم اپنا سوال لکھیں!";
+            return;
+        }
+        
+        let codeExamples = {
+            html: `<!-- ${question} کے لیے HTML کوڈ -->
+<div class="container">
+    <h1>آپ کا عنوان یہاں</h1>
+    <p>یہاں آپ کا مواد لکھیں</p>
+</div>`,
+            css: `/* ${question} کے لیے CSS کوڈ */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    background: #f5f5f5;
+}`,
+            javascript: `// ${question} کے لیے JavaScript کوڈ
+function myFunction() {
+    console.log("Hello World");
+    alert("آپ کا میسج");
+}`,
+            python: `# ${question} کے لیے Python کوڈ
+def my_function():
+    print("Hello World")
+    return True`
+        };
+        
+        let result = codeExamples[language];
+        let uniqueId = 'codeText_' + Date.now();
+        document.getElementById("codeResult").innerHTML = `
+            <div id="${uniqueId}" style="margin-bottom:15px; background:#1a1a2e; padding:15px; border-radius:8px; font-family:monospace; white-space:pre-wrap;">${result}</div>
+            <button class="copy-btn" onclick="copyTextById('${uniqueId}')">📋 کاپی کریں</button>
+        `;
+    }
+
+    // ========== Extra: Proposal Generator ==========
+    function generateProposal() {
+        let job = document.getElementById("jobTitle").value;
+        if (job === "") {
+            document.getElementById("proposalResult").innerHTML = "⚠️ براہ کرم جاب کا نام لکھیں";
+            return;
+        }
+        let uniqueId = 'proposalText_' + Date.now();
+        document.getElementById("proposalResult").innerHTML = `
+            <div id="${uniqueId}" style="margin-bottom:15px;">
+            Hello,<br><br>
+            I am an experienced professional with strong expertise in ${job}.<br><br>
+            I can deliver high-quality work with attention to detail and within your deadline.<br><br>
+            Best Regards,<br>
+            Sanaullah
+            </div>
+            <button class="copy-btn" onclick="copyTextById('${uniqueId}')">📋 کاپی کریں</button>
+        `;
+    }
+
+    // ========== Common Copy Function ==========
     function copyTextById(elementId) {
-        // پہلا طریقہ: متن کو حاصل کریں
         let element = document.getElementById(elementId);
         let textToCopy = element.innerText || element.textContent;
         
-        // دوسرا طریقہ: عارضی textarea بنائیں
         let tempTextArea = document.createElement("textarea");
         tempTextArea.value = textToCopy;
         document.body.appendChild(tempTextArea);
-        
-        // متن کو سلیکٹ کریں
         tempTextArea.select();
         tempTextArea.setSelectionRange(0, 99999);
         
-        // کاپی کرنے کی کوشش کریں
         let success = false;
         try {
             success = document.execCommand("copy");
@@ -443,15 +529,12 @@ footer h3 {
             console.log("execCommand error:", err);
         }
         
-        // عارضی textarea کو ہٹا دیں
         document.body.removeChild(tempTextArea);
         
-        // صارف کو بتائیں
         if (success) {
             alert("✅ متن کامیابی سے کاپی ہو گیا!");
         } else {
-            // تیسرا طریقہ: manual select and copy
-            alert("❌ خودکار کاپی ممکن نہیں۔ براہ کرم متن کو manually select کر کے Ctrl+C دبائیں۔\n\nمتن: \n" + textToCopy);
+            alert("❌ کاپی کرنے میں مسئلہ۔ براہ کرم متن کو manually select کر کے کاپی کریں۔");
         }
     }
 
@@ -466,7 +549,7 @@ footer h3 {
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script>
-    // === گولڈن ریت + چمکتی بلبیں (پس منظر) ===
+    // === گولڈن ریت + چمکتی بلبیں ===
     const canvas = document.getElementById('sandCanvas');
     const ctx = canvas.getContext('2d');
 
