@@ -381,47 +381,35 @@
 </div>
 
 <script>
-    // ========== GOOGLE TRANSLATE (آپ کے دیے ہوئے کوڈ سے) ==========
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'ur',
-            autoDisplay: false,
-            includedLanguages: 'ur,en,ar,hi,es,fr,de,tr,fa,bn,ru,zh,ja,ko,it,pt'
-        }, 'google_translate_element');
-    }
+    // 1. Google Translate کو ایکٹیویٹ کرنا
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+    }, 'google_translate_element');
+}
 
-    function searchLanguage() {
-        let searchLang = document.getElementById("language-search").value.trim();
-        if (searchLang === "") {
-            alert("براہ کرم کوئی زبان لکھیں!");
-            return;
-        }
-        
-        let select = document.querySelector('.goog-te-combo');
-        if (select) {
-            let found = false;
-            for (let i = 0; i < select.options.length; i++) {
-                let optionText = select.options[i].text.toLowerCase();
-                let searchLower = searchLang.toLowerCase();
-                if (optionText.includes(searchLower) || searchLower.includes(optionText.split(' ')[0])) {
-                    select.selectedIndex = i;
-                    select.dispatchEvent(new Event('change'));
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                alert("⚠️ یہ زبان اس وقت دستیاب نہیں۔");
-            }
-        } else {
-            alert("⚠️ براہ کرم Google Translate کے لوڈ ہونے کا انتظار کریں۔");
-        }
-    }
+// 2. کسٹم سرچ فنکشن
+let selectedEngine = 'google';
 
-    function quickSearch(lang) {
-        document.getElementById("language-search").value = lang;
-        searchLanguage();
-    }
+function setEngine(engine) {
+    selectedEngine = engine;
+    alert("سرچ انجن " + engine.toUpperCase() + " پر سیٹ ہو گیا!");
+}
+
+function performSearch() {
+    let query = document.getElementById('customSearchInput').value;
+    if (!query) return alert("براہ کرم کچھ لکھیں!");
+
+    let url = "";
+    if (selectedEngine === 'google') url = "https://www.google.com/search?q=" + query;
+    else if (selectedEngine === 'youtube') url = "https://www.youtube.com/results?search_query=" + query;
+    else if (selectedEngine === 'bing') url = "https://www.bing.com/search?q=" + query;
+
+    window.open(url, '_blank');
+}
+
 
     // ========== HELPER: COPY FUNCTION ==========
     function universalCopy(elementId) {
