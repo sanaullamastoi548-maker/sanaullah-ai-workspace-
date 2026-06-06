@@ -71,49 +71,99 @@
             box-shadow: 0 0 10px #ffcc00;
         }
 
-        
-        language-section{
-    background: rgba(255,255,255,0.07);
-    backdrop-filter: blur(15px);
-    border-radius: 30px;
-    padding: 35px;
-    border: 1px solid rgba(255,204,0,.3);
-    box-shadow: 0 0 35px rgba(255,204,0,.15);
-}
-
-.language-section h3{
-    font-size:30px;
-    color:#ffcc00;
-    margin-bottom:20px;
-}
-
-#language-status{
-    margin-top:15px;
-    font-size:15px;
-    line-height:1.7;
-}
-
-
-.language-section{
-    background: rgba(255,255,255,0.07);
-    backdrop-filter: blur(15px);
-    border-radius: 30px;
-    padding: 35px;
-    border: 1px solid rgba(255,204,0,.3);
-    box-shadow: 0 0 35px rgba(255,204,0,.15);
-}
-
-.language-section h3{
-    font-size:30px;
-    color:#ffcc00;
-    margin-bottom:20px;
-}
-
-#language-status{
-    margin-top:15px;
-    font-size:15px;
-    line-height:1.7;
-}    
+        /* ========== زبان اور سرچ بار (آپ کا دیا ہوا کوڈ) ========== */
+        .language-section {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            margin: 30px auto;
+            padding: 30px 20px;
+            max-width: 800px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .language-section h3 {
+            color: #ffcc00;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+        .search-box {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+        #language-search {
+            flex: 2;
+            min-width: 250px;
+            padding: 14px 20px;
+            border: 2px solid #ffcc00;
+            border-radius: 60px;
+            font-size: 16px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            outline: none;
+        }
+        #language-search:focus {
+            border-color: #fff;
+            box-shadow: 0 0 15px rgba(255,204,0,0.3);
+        }
+        .search-btn {
+            background: #ffcc00;
+            color: black;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 60px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .search-btn:hover {
+            background: #ffaa00;
+            transform: scale(0.98);
+        }
+        .translate-container {
+            background: rgba(0,0,0,0.4);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+        .translate-note {
+            font-size: 13px;
+            opacity: 0.7;
+            margin-top: 15px;
+        }
+        .popular-langs {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        .popular-langs h4 {
+            color: #ffcc00;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .lang-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+        .lang-tag {
+            background: rgba(255,204,0,0.15);
+            border: 1px solid rgba(255,204,0,0.4);
+            border-radius: 40px;
+            padding: 8px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 14px;
+        }
+        .lang-tag:hover {
+            background: #ffcc00;
+            color: black;
+            transform: translateY(-2px);
+        }
 
         /* ========== ٹولز کا کنٹینر ========== */
         .tools-container {
@@ -230,49 +280,39 @@
         <p>🤖 AI سے ہر مشکل کام کا آسان حل — Freelancing, Writing, SEO, Coding & Language Tools</p>
     </div>
 
-   <!-- نیا ٹرانسلیٹ اور سرچ سیکشن -->
-<div class="language-section">
-    <h3>🌍 Universal Language Center</h3>
-
-    <div class="search-box">
-        <input
-            type="text"
-            id="language-search"
-            placeholder="Urdu, English, Arabic, French, Turkish..."
-        >
-        <button class="search-btn" onclick="searchLanguage()">
-            🔍 Search Language
-        </button>
-    </div>
-
-    <div class="translate-container">
-
-        <div id="google_translate_element"></div>
-
-        <div id="language-status" class="result-box">
-            🌐 دنیا کی تمام دستیاب زبانیں سرچ کریں اور فوراً تبدیل کریں
+    <!-- ========== زبان اور سرچ بار (آپ کا دیا ہوا کوڈ - بالکل ویسا ہی) ========== -->
+    <div class="language-section">
+        <h3>🌐 اپنی زبان تلاش کریں</h3>
+        <div class="search-box">
+            <input type="text" id="language-search" placeholder="مثال: Urdu, English, Arabic, French, Turkish...">
+            <button class="search-btn" onclick="searchLanguage()">تلاش کریں</button>
+        </div>
+        
+        <div class="translate-container">
+            <div id="google_translate_element"></div>
+            <div class="translate-note">
+                💡 اوپر والے باکس میں زبان لکھیں، پھر نیچے والے Google Translate باکس سے منتخب کریں۔
+            </div>
         </div>
 
-    </div>
-
-    <div class="popular-langs">
-        <h4>⚡ Quick Languages</h4>
-
-        <div class="lang-tags">
-            <span class="lang-tag" onclick="quickSearch('English')">🇬🇧 English</span>
-            <span class="lang-tag" onclick="quickSearch('Urdu')">🇵🇰 Urdu</span>
-            <span class="lang-tag" onclick="quickSearch('Arabic')">🇸🇦 Arabic</span>
-            <span class="lang-tag" onclick="quickSearch('Hindi')">🇮🇳 Hindi</span>
-            <span class="lang-tag" onclick="quickSearch('Turkish')">🇹🇷 Turkish</span>
-            <span class="lang-tag" onclick="quickSearch('French')">🇫🇷 French</span>
-            <span class="lang-tag" onclick="quickSearch('German')">🇩🇪 German</span>
-            <span class="lang-tag" onclick="quickSearch('Chinese')">🇨🇳 Chinese</span>
-            <span class="lang-tag" onclick="quickSearch('Japanese')">🇯🇵 Japanese</span>
-            <span class="lang-tag" onclick="quickSearch('Russian')">🇷🇺 Russian</span>
+        <!-- Popular Languages Quick Access -->
+        <div class="popular-langs">
+            <h4>📚 مشہور زبانیں (کلک کریں)</h4>
+            <div class="lang-tags">
+                <span class="lang-tag" onclick="quickSearch('Urdu')">🇵🇰 اردو</span>
+                <span class="lang-tag" onclick="quickSearch('English')">🇬🇧 English</span>
+                <span class="lang-tag" onclick="quickSearch('Arabic')">🇸🇦 العربية</span>
+                <span class="lang-tag" onclick="quickSearch('Hindi')">🇮🇳 हिन्दी</span>
+                <span class="lang-tag" onclick="quickSearch('Spanish')">🇪🇸 Español</span>
+                <span class="lang-tag" onclick="quickSearch('French')">🇫🇷 Français</span>
+                <span class="lang-tag" onclick="quickSearch('German')">🇩🇪 Deutsch</span>
+                <span class="lang-tag" onclick="quickSearch('Turkish')">🇹🇷 Türkçe</span>
+                <span class="lang-tag" onclick="quickSearch('Persian')">🇮🇷 فارسی</span>
+                <span class="lang-tag" onclick="quickSearch('Bengali')">🇧🇩 বাংলা</span>
+            </div>
         </div>
-
     </div>
-</div>
+
     <!-- ========== ٹولز کا کنٹینر ========== -->
     <div class="tools-container">
         <!-- Tool 1: Freelance Assistant -->
@@ -341,35 +381,46 @@
 </div>
 
 <script>
-    // 1. Google Translate کو ایکٹیویٹ کرنا
-function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-        pageLanguage: 'en',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-        autoDisplay: false
-    }, 'google_translate_element');
-}
+    // ========== GOOGLE TRANSLATE (آپ کے دیے ہوئے کوڈ سے) ==========
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'ur',
+            autoDisplay: false,
+            includedLanguages: 'ur,en,ar,hi,es,fr,de,tr,fa,bn,ru,zh,ja,ko,it,pt'
+        }, 'google_translate_element');
+    }
 
-// 2. کسٹم سرچ فنکشن
-let selectedEngine = 'google';
+    function searchLanguage() {
+        let searchLang = document.getElementById("language-search").value.trim();
+        if (searchLang === "") {
+            alert("براہ کرم کوئی زبان لکھیں!");
+            return;
+        }
+        
+        let select = document.querySelector('.goog-te-combo');
+        if (select) {
+            let found = false;
+            for (let i = 0; i < select.options.length; i++) {
+                let optionText = select.options[i].text.toLowerCase();
+                let searchLower = searchLang.toLowerCase();
+                if (optionText.includes(searchLower) || searchLower.includes(optionText.split(' ')[0])) {
+                    select.selectedIndex = i;
+                    select.dispatchEvent(new Event('change'));
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                alert("⚠️ یہ زبان اس وقت دستیاب نہیں۔");
+            }
+        } else {
+            alert("⚠️ براہ کرم Google Translate کے لوڈ ہونے کا انتظار کریں۔");
+        }
+    }
 
-function setEngine(engine) {
-    selectedEngine = engine;
-    alert("سرچ انجن " + engine.toUpperCase() + " پر سیٹ ہو گیا!");
-}
-
-function performSearch() {
-    let query = document.getElementById('customSearchInput').value;
-    if (!query) return alert("براہ کرم کچھ لکھیں!");
-
-    let url = "";
-    if (selectedEngine === 'google') url = "https://www.google.com/search?q=" + query;
-    else if (selectedEngine === 'youtube') url = "https://www.youtube.com/results?search_query=" + query;
-    else if (selectedEngine === 'bing') url = "https://www.bing.com/search?q=" + query;
-
-    window.open(url, '_blank');
-}
-
+    function quickSearch(lang) {
+        document.getElementById("language-search").value = lang;
+        searchLanguage();
     }
 
     // ========== HELPER: COPY FUNCTION ==========
@@ -440,8 +491,8 @@ function performSearch() {
     }
 </script>
 
+<!-- Google Translate Script -->
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
 
 <script>
     // ========== گولڈن ریت + چمکتی بلبیں (پس منظر) ==========
