@@ -127,7 +127,65 @@ canvas {
     color: white;
 }
 
-/* Tool Section - ہر ٹول الگ کارڈ میں */
+/* Language Search Section */
+.lang-search-section {
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(255, 255, 255, .1);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 25px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.lang-search-section h3 {
+    color: #ffcc00;
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+.lang-search-box {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.lang-search-box input {
+    flex: 2;
+    min-width: 200px;
+    background: #111;
+    color: white;
+    border: 1px solid #ffcc00;
+    border-radius: 50px;
+    padding: 12px 20px;
+    font-size: 16px;
+}
+
+.lang-search-box button {
+    background: #ffcc00;
+    color: black;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.lang-search-box button:hover {
+    background: #ffaa00;
+}
+
+.lang-result {
+    margin-top: 15px;
+    padding: 12px;
+    background: #0a0a0f;
+    border-radius: 10px;
+    color: #ddd;
+}
+
+/* Tool Section */
 .tool-section {
     background: rgba(255, 255, 255, .05);
     border: 1px solid rgba(255, 255, 255, .1);
@@ -167,7 +225,6 @@ canvas {
     font-size: 16px;
 }
 
-/* Tool Content */
 .tool-content {
     background: rgba(0,0,0,0.3);
     border-radius: 16px;
@@ -275,6 +332,23 @@ footer h3 {
         <p>AI سے ہر مشکل کام کا آسان حل — Freelancing, Writing, Automation اور Productivity Tools</p>
     </div>
 
+    <!-- ==================== زبانوں میں سرچ سیکشن ==================== -->
+    <div class="lang-search-section">
+        <h3>🌍 زبان تلاش کریں / Search Language</h3>
+        <div class="lang-search-box">
+            <input type="text" id="languageSearchInput" placeholder="مثال: English, Urdu, Arabic, Hindi, French...">
+            <button onclick="searchLanguage()">تلاش کریں 🔍</button>
+        </div>
+        <div id="languageSearchResult" class="lang-result">
+            💡 یہاں Google Translate موجود ہے۔ نیچے والے باکس میں کوئی بھی زبان لکھ کر ویب سائٹ ترجمہ کریں۔
+        </div>
+    </div>
+
+    <!-- Google Translate -->
+    <div class="tool-section">
+        <div id="google_translate_element"></div>
+    </div>
+
     <!-- ==================== ٹول 1: Freelance Assistant ==================== -->
     <div class="tool-section">
         <div class="tool-header">
@@ -350,15 +424,7 @@ footer h3 {
         </div>
     </div>
 
-    <!-- ==================== اضافی ٹولز ==================== -->
-    
-    <!-- Google Translate -->
-    <h2 class="section-title">🌐 زبان تبدیل کریں</h2>
-    <div class="tool-section">
-        <div id="google_translate_element"></div>
-    </div>
-
-    <!-- Proposal Generator (Extra) -->
+    <!-- ==================== اضافی ٹول ==================== -->
     <h2 class="section-title">🤖 Proposal Generator</h2>
     <div class="tool-section">
         <input type="text" id="jobTitle" placeholder="مثال: Google Sheets Automation">
@@ -375,6 +441,97 @@ footer h3 {
 </footer>
 
 <script>
+    // ========== Language Search Function ==========
+    function searchLanguage() {
+        let searchLang = document.getElementById("languageSearchInput").value;
+        let resultDiv = document.getElementById("languageSearchResult");
+        
+        if (searchLang === "") {
+            resultDiv.innerHTML = "⚠️ براہ کرم کوئی زبان لکھیں۔ Please enter a language name.";
+            return;
+        }
+        
+        resultDiv.innerHTML = `
+            🔍 آپ نے تلاش کیا: <strong>${searchLang}</strong><br>
+            🌐 Google Translate نیچے موجود ہے۔ ${searchLang} کو منتخب کرنے کے لیے نیچے والے باکس میں ${searchLang} لکھیں۔<br>
+            💡 Tip: Scroll down to Google Translate box and select ${searchLang} from dropdown.
+        `;
+    }
+
+    // ========== کثیر لسانی کاپی میسج فنکشن ==========
+    function getCopyMessageInUserLanguage() {
+        // براؤزر کی زبان معلوم کریں
+        let userLang = navigator.language || navigator.userLanguage;
+        userLang = userLang.toLowerCase();
+        
+        // مختلف زبانوں میں پیغامات
+        const messages = {
+            'ur': '✅ متن کامیابی سے کاپی ہو گیا!',
+            'ur-pk': '✅ متن کامیابی سے کاپی ہو گیا!',
+            'en': '✅ Text copied successfully!',
+            'en-us': '✅ Text copied successfully!',
+            'en-gb': '✅ Text copied successfully!',
+            'hi': '✅ पाठ सफलतापूर्वक कॉपी हो गया!',
+            'hi-in': '✅ पाठ सफलतापूर्वक कॉपी हो गया!',
+            'ar': '✅ تم نسخ النص بنجاح!',
+            'fr': '✅ Texte copié avec succès!',
+            'es': '✅ Texto copiado con éxito!',
+            'de': '✅ Text erfolgreich kopiert!',
+            'zh': '✅ 文本复制成功！',
+            'ru': '✅ Текст успешно скопирован!',
+            'tr': '✅ Metin başarıyla kopyalandı!',
+            'fa': '✅ متن با موفقیت کپی شد!',
+            'bn': '✅ পাঠ্য সফলভাবে কপি হয়েছে!',
+            'pa': '✅ ਟੈਕਸਟ ਸਫਲਤਾਪੂਰਵਕ ਕਾਪੀ ਹੋ ਗਿਆ!',
+            'gu': '✅ ટેક્સ્ટ સફળતાપૂર્વક કોપી થઈ ગયું!',
+            'ta': '✅ உரை வெற்றிகரமாக நகலெடுக்கப்பட்டது!',
+            'te': '✅ వచనం విజయవంతంగా కాపీ చేయబడింది!',
+            'ml': '✅ വാചകം വിജയകരമായി പകർത്തി!'
+        };
+        
+        // پہلے exact match، پھر language code without region
+        if (messages[userLang]) {
+            return messages[userLang];
+        }
+        
+        let shortLang = userLang.split('-')[0];
+        if (messages[shortLang]) {
+            return messages[shortLang];
+        }
+        
+        // ڈیفالٹ اردو (چونکہ ویب سائٹ اردو میں ہے)
+        return '✅ متن کامیابی سے کاپی ہو گیا!';
+    }
+
+    // ========== Common Copy Function (تمام زبانوں میں پیغام) ==========
+    function copyTextById(elementId) {
+        let element = document.getElementById(elementId);
+        let textToCopy = element.innerText || element.textContent;
+        
+        let tempTextArea = document.createElement("textarea");
+        tempTextArea.value = textToCopy;
+        document.body.appendChild(tempTextArea);
+        tempTextArea.select();
+        tempTextArea.setSelectionRange(0, 99999);
+        
+        let success = false;
+        try {
+            success = document.execCommand("copy");
+        } catch(err) {
+            console.log("execCommand error:", err);
+        }
+        
+        document.body.removeChild(tempTextArea);
+        
+        let message = getCopyMessageInUserLanguage();
+        
+        if (success) {
+            alert(message);
+        } else {
+            alert("❌ " + (message.replace('✅', '❌')));
+        }
+    }
+
     // ========== Tool 1: Freelance Assistant ==========
     function generateAIAnswer() {
         let task = document.getElementById("taskType").value;
@@ -509,33 +666,6 @@ def my_function():
             </div>
             <button class="copy-btn" onclick="copyTextById('${uniqueId}')">📋 کاپی کریں</button>
         `;
-    }
-
-    // ========== Common Copy Function ==========
-    function copyTextById(elementId) {
-        let element = document.getElementById(elementId);
-        let textToCopy = element.innerText || element.textContent;
-        
-        let tempTextArea = document.createElement("textarea");
-        tempTextArea.value = textToCopy;
-        document.body.appendChild(tempTextArea);
-        tempTextArea.select();
-        tempTextArea.setSelectionRange(0, 99999);
-        
-        let success = false;
-        try {
-            success = document.execCommand("copy");
-        } catch(err) {
-            console.log("execCommand error:", err);
-        }
-        
-        document.body.removeChild(tempTextArea);
-        
-        if (success) {
-            alert("✅ متن کامیابی سے کاپی ہو گیا!");
-        } else {
-            alert("❌ کاپی کرنے میں مسئلہ۔ براہ کرم متن کو manually select کر کے کاپی کریں۔");
-        }
     }
 
     // Google Translate
